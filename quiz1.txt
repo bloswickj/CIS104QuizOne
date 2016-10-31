@@ -1,0 +1,181 @@
+/**																
+ *   @author Bates, Howard (hbates@northmen.org)
+ *   @version 0.0.2
+ *   @summary Project 4 demo code || created: 03.16.2016
+ *   @todo
+ */
+
+"use strict";
+const PROMPT = require('readline-sync');
+
+let continueResponse;
+let currentMonth, currentGrade, currentClassroom, upperTuition;
+const MAX_GRADE = 8,
+     MAX_MONTH = 9,
+     MAX_CLASSROOM = 3,
+     KDG_TUITION = 80;
+
+function main() {
+     process.stdout.write('\x1Bc'); //Clears the screen
+     setContinueResponse();
+     while (continueResponse === 1) {
+          setCurrentMonth();
+          setCurrentGrade();
+          setCurrentClassroom();
+          processPaymentCoupons();
+          setContinueResponse();
+          for (let i = 0; i < MAX_CLASSROOM; i++) {
+               printGoodbye();
+          }
+     }
+}
+
+main();
+
+function setContinueResponse() {
+     if (continueResponse != null) {
+          continueResponse = -1;
+          while (continueResponse !== 0 && continueResponse !== 1) {
+               continueResponse = Number(PROMPT.question(`\nDo you want to continue? [0=no, 1=yes]: `));
+          }
+     } else {
+          continueResponse = 1;
+     }
+}
+
+function setCurrentMonth() {
+     if (currentMonth != null && currentMonth <= MAX_MONTH) {
+          currentMonth++;
+     } else {
+          currentMonth = 1;
+     }
+}
+
+function setCurrentGrade() {
+     if (typeof currentGrade !=='undefined' && currentGrade <= MAX_GRADE) {  //http://stackoverflow.com/questions/5076944/what-is-the-difference-between-null-and-undefined-in-javascript
+          currentGrade++;
+     } else {
+          currentGrade = 0;
+     }
+}
+
+function setCurrentClassroom() {
+     if (typeof currentClassroom !=='undefined' && currentClassroom <= MAX_CLASSROOM) {
+          currentClassroom++;
+     } else {
+          currentClassroom = 1;
+     }
+}
+
+function setUpperTuition() {
+     const BASE_TUITION = 60;
+     upperTuition = BASE_TUITION * currentGrade;
+}
+
+function processPaymentCoupons() {
+     while (currentGrade <= MAX_GRADE) {
+          while (currentClassroom <= MAX_CLASSROOM) {
+               while (currentMonth <= MAX_MONTH) {
+                    if (currentGrade == 0) {
+                         console.log(`\n\tThe tuition for month: ${currentMonth}, for classroom: ${currentClassroom}, of grade: ${currentGrade} is: \$${KDG_TUITION}.`);
+                    } else {
+                         setUpperTuition();
+                         console.log(`\n\tThe tuition for month: ${currentMonth}, for classroom: ${currentClassroom}, of grade: ${currentGrade} is: \$${upperTuition}.`);
+                    }
+                    setCurrentMonth();
+               }
+               setCurrentClassroom();
+               setCurrentMonth();
+          }
+          setCurrentGrade();
+          setCurrentClassroom();
+     }
+}
+
+function printGoodbye() {
+     console.log(`\tGoodbye.`);
+}
+/*
+1. A forward slash followed by two asterisks is the beginning of a multi-line comment.
+2. Comment indicating author of code.
+3. Comment indicating version of code.
+4. Name of and creation date of code.
+5. Item to be completed.
+6. A forward slash followed by a single asterisk indicated the end of a multi-line comment.
+8. This turns on a strict mode in the language which does not allow as much 'forgiveness' in the way the code is written.
+9. This is accessing a language library and setting it equal to the constant called 'PROMPT' so that we have easy local access to it in our code.
+11. This is declaring a variable called 'continueResponse'.
+12 This is declaring 4 more varibales. These are grouped by data type for easier reading of the code.
+13-16. These lines are declaring and initializing constants.
+18. Is the meathod signature line for the method 'main'. This method is also known as the dispatcher because it is used to call other methods. The open curly brace indicates the start of the block of code.
+19. This line is used to clear the screen of the console in windows.
+20. Calls the function called setContinueResponse.
+21. The start of a while loop that runs as long as continueResponse is equal to and the same data type as 1.
+22. Calls the function called setCurrentMonth.
+23. Calls the function called setCurrentGrade.
+24. Calls the function called setCurrentClassroom.
+25. Calls the function called processPaymentCoupons.
+26. Calls the function called setContinueResponse.
+27. The start of a for loop that uses the variable i with a starting value of 0, i < MAX_CLASSROOM as the condition, and i++ (i = i + 1) as the incrementation.
+28. Calls the function called printGoodbye.
+29. Closing curly brace for the for loop.
+30. Closing curly brace for the while loop.
+31. Closing curly brace for the main method.
+33. Calls the main function. 
+35. The method signature line for setContinueResponse.
+36. The start of an if statement. continueResponse != (is not) null is used as the test.
+37. Sets continue response equal to -1.
+38. The start of a while loop. continueResponse !== (not equal to and same data type as) 0 && continueResponse !== 1 is used as the test for the loop.
+39. Sets continue response equal to the users input.
+40. Closing curly brace for the while loop.
+41. Closing curly brace for the if statement. Start of an else statement.
+42. Sets continue response equal to 1.
+43. Closing curly brace for the else statement.
+44. Closing curly brace for the method.
+46. The method signature line for setCurrentMonth.
+47. Start of an if statement. currentMonth != (not equal to) null && (and) currentMonth <= (less than or equal to) MAX_MONTH is used as the test.
+48. Increases current month by 1.
+49. Close of if statement. Start of else statement.
+50. Sets current month equal to 1.
+51. Close of else statement.
+52. Close of method.
+54. Method signature line for setCurrentGrade.
+55. Start of if statement. typeof currentGrade !== 'undefined' (another way of testing if a variables value has been set) && currentGrade <= MAX_GRADE is used as the test. Includes a single line comment.
+56. Increases currentGrade by 1.
+57. Close of if statement. Start of else statement.
+58. Sets current grade equal to 0.
+59. Close of else statement.
+60. Close of method.
+62. Method signature line for setCurrentClassroom.
+63. Start of if statement. typeof currentClassroom !== 'undefined' (another way of testing if a variables value has been set) && currentClassroom <= MAX_CLASSROOM is used as the test.
+64. Increases currentClassroom by 1.
+65. Close of if statement. Start of else statement.
+66. Sets currentClassroom equal to 1.
+67. Close of else statement.
+68. Close of method.
+70. Method signature line for setUpperTuition.
+71. Declares and initiates a const called BASE_TUITION equl to 60.
+72. Sets upperTuition equal to BASE_TUITION mutliplied by currentGrade.
+73. Close of method.
+75. Method signature line for processPaymentCoupons.
+76. Start of while loop. currentGrade <= MAX_GRADE is used as the test.
+77. Start of nested while loop. currentClassroom <= MAX_CLASSROOM is used as the test.
+78. Start of double nested while loop. currentMonth <= MAX_MONTH is used as the test.
+79. Start of if statement. currentGrade == 0 is used as the test.
+80. Prints currentMonth, currentClassroom, currentGrade, and KDG_TUITON.
+81. Close of if statement. Start of else statement.
+82. Calls setUpperTuition method.
+83. Prints currentMonth, currentClassroom, currentGrade, and upperTuition.
+84. Close of else statement.
+85. Calls setCurrentMonth method.
+86. Close of double nested while loop.
+87. Calls setCurrentClassroom and setCurrentMonth methods.
+88. Close of nested while loop.
+89. Calls setCurrentGrade method.
+90. Calls setCurrentClassroom method.
+91. Close of while loop.
+92. Close of method.
+94. Method signature line for printGoodbye.
+95. Prints message to the user.
+96. Close of method.
+
