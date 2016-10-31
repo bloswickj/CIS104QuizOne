@@ -125,7 +125,7 @@ function printGoodbye() {
 35. The method signature line for setContinueResponse.
 36. The start of an if statement. continueResponse != (is not) null is used as the test.
 37. Sets continue response equal to -1.
-38. The start of a while loop. continueResponse !== (not equal to and same data type as) 0 && continueResponse !== 1 is used as the test for the loop.
+38. The start of a while loop. continueResponse !== (not equal to) && continueResponse !== 1 is used as the test for the loop.
 39. Sets continue response equal to the users input.
 40. Closing curly brace for the while loop.
 41. Closing curly brace for the if statement. Start of an else statement.
